@@ -1,0 +1,9 @@
+streamlit == 1.39.0
+streamlit
+pandas
+openpyxl
+plotly
+pyrebase4
+firebase-admin
+streamlit-authenticator
+setuptools
