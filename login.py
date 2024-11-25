@@ -1,6 +1,9 @@
 # login.py
 import streamlit as st
 from firebase_config import auth
+from utils import aplicar_estilos
+
+aplicar_estilos()
 
 
 def login():
@@ -10,6 +13,7 @@ def login():
     password = st.text_input("Contraseña", type="password", key="login_password")
 
     if st.button("Iniciar Sesión"):
+
         try:
             user = auth.sign_in_with_email_and_password(email, password)
             st.success("Inicio de sesión exitoso")
@@ -21,7 +25,8 @@ def login():
 
 
 def logout():
-    if st.button("Cerrar Sesión"):
+    if st.button("Cierre sesion"):
+
         st.session_state.pop('user', None)
         st.success("Sesión cerrada")
 

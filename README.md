@@ -1,7 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/9bKkctvo)
-# snies_proyecto_3
-Proyecto_3
-
 # Sistema de Visualización y Consolidación de Datos SNIES
 
 ## Descripción General
@@ -39,10 +35,6 @@ classDiagram
     class DataVisualization {
         +graficar_datos(resultados)
     }
-
-    (por ahora solo por ejemplificar)
-```
-
+```[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/9bKkctvo)
 # snies_proyecto_3
 Proyecto_3
-

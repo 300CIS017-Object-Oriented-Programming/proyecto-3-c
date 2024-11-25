@@ -1,31 +1,28 @@
 # data_filter.py
 import pandas as pd
-import os
 
-
-def buscar_programas(keyword, archivos):
+def obtener_programas_academicos(archivos, anio_inicio, anio_fin):
     """
-    Busca programas que contengan la palabra clave en los archivos proporcionados.
+    Obtiene una lista de programas académicos disponibles en los archivos proporcionados dentro del rango de años especificado.
     Args:
-    - keyword (str): Palabra clave a buscar.
     - archivos (list): Lista de rutas de archivos a analizar.
+    - anio_inicio (int): Año de inicio del rango.
+    - anio_fin (int): Año de fin del rango.
 
     Returns:
-    - list: Lista de programas que coinciden con la palabra clave.
+    - list: Lista de programas académicos disponibles.
     """
-    programas_encontrados = []
+    programas_academicos = set()
 
     for archivo in archivos:
         try:
-            df = pd.read_excel(archivo)
-            # Asegurémonos de que el DataFrame tiene la columna "PROGRAMA ACADÉMICO"
-            if "PROGRAMA ACADÉMICO" in df.columns:
-                # Filtrar los programas que contengan la palabra clave
-                resultados = df[df["PROGRAMA ACADÉMICO"].str.contains(keyword, case=False, na=False)]
-                programas_encontrados.extend(resultados.to_dict('records'))
-            else:
-                print(f"No se encontró la columna 'PROGRAMA ACADÉMICO' en el archivo {archivo}")
+            df = pd.read_excel(archivo, usecols=["AÑO", "PROGRAMA ACADÉMICO"])
+            df["AÑO"] = pd.to_numeric(df["AÑO"], errors='coerce')  # Convertir a numérico, NaN si falla
+            df = df.dropna(subset=["AÑO"])  # Eliminar filas donde "AÑO" es NaN
+            df["AÑO"] = df["AÑO"].astype(int)  # Convertir a enteros
+            df = df[df['AÑO'].between(anio_inicio, anio_fin)]
+            programas_academicos.update(df["PROGRAMA ACADÉMICO"].dropna().unique())
         except Exception as e:
             print(f"Error al procesar el archivo {archivo}: {e}")
 
-    return programas_encontrados
+    return programas_academicos
